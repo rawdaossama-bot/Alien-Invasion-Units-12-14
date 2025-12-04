@@ -1,3 +1,17 @@
+"""
+alien_invasion.py
+alien_invasion module for Alien Invasion game.
+
+Author: Rawda Hassanin
+Date: 11/30/2025
+Resources:
+- Starter repo: https://github.com/rawdaossama-bot/Lab12_Rawda-Hassanin_1.git
+- Pygame documentation: https://www.pygame.org/docs/
+
+Main module to run the Alien Invasion game.
+Provides the AlienInvasion class which initializes the game, handles the
+main loop, events, and screen updates.
+"""
 import sys
 import pygame
 from Settings import Settings
@@ -6,7 +20,15 @@ from arsenal import ShipArsenal
 
 
 class AlienInvasion:
+    """Manage game assets and behavior for Alien Invasion.
+
+    Responsible for initializing pygame, loading settings and resources,
+    creating the main Ship object, running the game loop, processing
+    events, and updating the display.
+    """
+
     def __init__(self)->None:
+        """Initialize game, create screen, load resources, and create ship."""
         pygame.init()
         pygame.mixer.init()
         self.Settings = Settings()
@@ -31,6 +53,14 @@ class AlienInvasion:
 
 
     def run_game(self) -> None:
+        """Start the main game loop.
+
+        The loop continues while self.running is True. Each iteration:
+        - handles input events
+        - updates the ship
+        - redraws the screen
+        - enforces the target FPS
+        """
         #Game Loop
         while self.running:
             self._chaeck_events()
@@ -39,6 +69,10 @@ class AlienInvasion:
             self.clock.tick(self.Settings.FPS) 
 
     def _update_screen(self)-> None:
+        """Redraw the screen and flip to the new display.
+
+        Draws the background and the ship, then updates the display buffer.
+        """
         self.screen.blit(self.bg,(0,0))
         self.ship.draw()
  
@@ -46,6 +80,10 @@ class AlienInvasion:
 
             
     def _chaeck_events(self)-> None:
+        """Respond to keypresses and mouse events.
+
+        Processes the pygame event queue and dispatches to specific handlers.
+        """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -58,6 +96,10 @@ class AlienInvasion:
 
 
     def _check_keyup_events(self, event)-> None:
+        """Handle key release events.
+
+        Updates ship movement flags when arrow keys are released.
+        """
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False 
 
@@ -66,6 +108,10 @@ class AlienInvasion:
 
     
     def _check_keydown_events(self, event)-> None:
+        """Handle key press events.
+
+        Sets movement flags, fires ship weapons on space, and quits on 'q'.
+        """
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True 
 
