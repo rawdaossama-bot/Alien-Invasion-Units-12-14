@@ -1,0 +1,35 @@
+Alien Invasion — Program Behavior and Manual Checks
+Author: Rawda Hassanin
+Date: 11/30/2025
+
+1. Game Start
+- The game window opens with a starry background.
+- The spaceship appears at the bottom center of the screen.
+- Background music or sound effects are not included at start.
+
+2. Controls
+- Move ship left: Left Arrow
+- Move ship right: Right Arrow
+- Fire bullets: Spacebar
+- Quit game: Q
+
+3. Ship Behavior
+- Ship moves left/right with the specified speed.
+- Ship cannot move beyond the left or right edge of the screen.
+
+4. Bullet Behavior
+- Maximum 5 bullets can exist on the screen at any given time.
+- Bullets move upwards when fired.
+- Each bullet firing plays a laser sound effect.
+
+5. Manual Checks
+- Verify ship moves smoothly left and right.
+- Verify ship stops at screen edges.
+- Fire bullets repeatedly and ensure only 5 bullets are on screen simultaneously.
+- Check that laser sound plays every time a bullet is fired.
+- Quit the game using Q or the window close button.
+
+6. Notes
+- All assets are in the `Assets` folder.
+- Game speed and bullet limits are controlled in `Settings.py`.
+- Any modifications to ship speed or bullet limits should be tested manually.
