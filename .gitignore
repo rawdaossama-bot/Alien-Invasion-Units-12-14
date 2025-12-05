@@ -1,0 +1,16 @@
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environments
+venv/
+env/
+.venv/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/editor folders (uncomment as needed for your team's editors)
+.vscode/    # Visual Studio Code settings folder
+.idea/    # JetBrains IDEs (PyCharm, IntelliJ) settings folder
