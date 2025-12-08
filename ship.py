@@ -48,8 +48,8 @@ class Ship:
         self.boundaries = self.screen.get_rect()
 
         self.image = pygame.image.load(self.Settings.ship_file)
-        self.image = pygame.transform.scale(self.image, (60,60))
-           #(self.Settings.screen_w,self.Settings.screen_h))
+        self.image = pygame.transform.scale(self.image,
+           (self.Settings.ship_w,self.Settings.ship_h))
         
         self.rect = self.image.get_rect()
         self.rect.midbottom = self.boundaries.midbottom
