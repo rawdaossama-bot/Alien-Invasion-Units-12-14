@@ -37,8 +37,8 @@ class Settings:
     def __init__(self) -> None:
         """Initialize all game settings and asset file paths."""
         self.name: str = 'Alien Invasion'
-        self.screen_w = 1100
-        self.screen_h = 600
+        self.screen_w = 1200
+        self.screen_h = 700
         self.FPS = 60
         self.bg_file = Path.cwd() / 'Assets'/ 'images' / 'Galaxy.png'
 
@@ -52,11 +52,12 @@ class Settings:
         self.bullet_speed = 7
         self.bullet_w = 25
         self.bullet_h = 80
-        self.bullet_amount = 5
+        self.bullet_amount = 8
         
         
         self.alien_file = Path.cwd() / 'Assets'/ 'images'/ 'enemy_4.png'
         self.fleet_speed  = 5
-        self.alien_w = 80
-        self.alien_h = 80
+        self.alien_w = 50
+        self.alien_h = 50
         self.fleet_direction = 1  # 1 for right, -1 for left 
+        self.fleet_drop_speed = 80
