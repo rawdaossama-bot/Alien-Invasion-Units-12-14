@@ -17,7 +17,8 @@ import pygame
 from Settings import Settings
 from ship import Ship
 from arsenal import ShipArsenal
-from alien import Alien
+#from alien import Alien
+from alien_fleet import AlienFleet
 
 
 class AlienInvasion:
@@ -51,7 +52,8 @@ class AlienInvasion:
 
 
         self.ship = Ship(self, ShipArsenal(self))
-        self.alien = Alien(self,10,10)
+        self.alien_fleet = AlienFleet(self)
+        self.alien_fleet.create_fleet ()
 
 
     def run_game(self) -> None:
@@ -68,17 +70,17 @@ class AlienInvasion:
             self._chaeck_events()
             self.ship.update()
             self._update_screen()
-            self.alien.update()
+            #self.alien.update()
             self.clock.tick(self.Settings.FPS)  
 
     def _update_screen(self)-> None:
         """Redraw the screen and flip to the new display.
 
-        Draws the background and the ship, then updates the display buffer.
+            s the background and the ship, then updates the display buffer.
         """
         self.screen.blit(self.bg,(0,0))
         self.ship.draw()
-        self.alien.draw_alien()
+        self.alien_fleet.draw()
  
         pygame.display.flip()
 

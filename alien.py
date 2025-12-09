@@ -15,7 +15,7 @@ from pygame.sprite import Sprite
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from alien_invasion import AlienInvasion
+    from alien_fleet import AlienFleet
 
 
 class Alien(Sprite):
@@ -29,7 +29,7 @@ class Alien(Sprite):
         y: Float y-position for smooth upward movement.
     """
 
-    def __init__(self, game: 'AlienInvasion', x: float, y: float) -> None:
+    def __init__(self, fleet: 'AlienFleet', x: float, y: float) -> None:
         """Initialize a bullet at the ship's top-center position.
 
         Loads and scales the bullet image, positions it at the ship's midtop,
@@ -39,9 +39,9 @@ class Alien(Sprite):
             game: The AlienInvasion instance that created this bullet.
         """
         super().__init__()
-        self.screen = game.screen
-        self.boundaries = game.screen.get_rect()
-        self.settings = game.Settings
+        self.screen = fleet.game.screen
+        self.boundaries = fleet.game.screen.get_rect()
+        self.settings = fleet.game.Settings
         
         self.image = pygame.image.load(self.settings.alien_file)
         self.image = pygame.transform.scale(self.image, 
