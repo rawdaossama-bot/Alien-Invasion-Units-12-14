@@ -69,7 +69,7 @@ class AlienInvasion:
             self.ship.update()
             self._update_screen()
             self.alien.update()
-            self.clock.tick(self.Settings.FPS) 
+            self.clock.tick(self.Settings.FPS)  
 
     def _update_screen(self)-> None:
         """Redraw the screen and flip to the new display.
