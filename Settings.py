@@ -56,6 +56,7 @@ class Settings:
         
         
         self.alien_file = Path.cwd() / 'Assets'/ 'images'/ 'enemy_4.png'
-        self.fleet_speed  = 3
+        self.fleet_speed  = 5
         self.alien_w = 80
         self.alien_h = 80
+        self.fleet_direction = 1  # 1 for right, -1 for left 
