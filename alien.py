@@ -39,6 +39,7 @@ class Alien(Sprite):
             game: The AlienInvasion instance that created this bullet.
         """
         super().__init__()
+        self.fleet = fleet
         self.screen = fleet.game.screen
         self.boundaries = fleet.game.screen.get_rect()
         self.settings = fleet.game.Settings
@@ -63,13 +64,8 @@ class Alien(Sprite):
         Moves the bullet upward at the configured bullet_speed and updates
         the rect for rendering.
         """
-        temp_speed = self.settings.fleet_speed
-        
-        if self.check_edges(): 
-            self.settings.fleet_direction *= -1
-            self.y += self.settings.fleet_drop_speed
-            
-        self.x += temp_speed * self.settings.fleet_direction
+        temp_speed = self.settings.fleet_speed    
+        self.x += temp_speed * self.fleet.fleet_direction
         self.rect.x = self.x
         self.rect.y = self.y
     
@@ -78,6 +74,7 @@ class Alien(Sprite):
     def check_edges(self):
         return (self.rect.right >= self.boundaries.right or self.rect.left <= self.boundaries.left)
         
+    
     def draw_alien(self) -> None:
         """Draw the bullet to the screen surface."""
         self.screen.blit(self.image, self.rect)

@@ -52,7 +52,6 @@ class AlienFleet:
                 alien = Alien(game=None, x=x, y=y)  # Pass None for game, adjust as needed
                 self.fleet.add(alien)
                     """
-                  
                 if col%2==0 or row %2 ==0:
                     continue
                 self._creat_alien(current_x, current_y)
@@ -60,7 +59,7 @@ class AlienFleet:
                     continue 
             self._creat_alien(current_x, current_y)"""
 
-    def new_method(self, alien_w, alien_h, screen_w, fleet_w, fleet_h):
+    def calculate_offsets(self, alien_w, alien_h, screen_w, fleet_w, fleet_h):
         half_screen = self.settings.screen_h // 2
         fleet_horizantle_space = (fleet_w * alien_w)
         fleet_vertical_space = (fleet_h * alien_h)
@@ -87,9 +86,27 @@ class AlienFleet:
         return int(fleet_w), int(fleet_h)  
             
     def _creat_alien(self, current_x: int, current_y: int) -> None: 
-        new_alien = Alien(self, current_x, current_y)   
+        new_alien = Alien(self, current_x, current_y) 
+        self.fleet.add(new_alien)  
         
-        self.fleet.add(new_alien)
+    def _check_fleet_egdges(self) -> None:  
+        alien :Alien
+        for alien in self.fleet:
+            if alien.check_edges():
+                self.fleet_direction *= -1
+                self._drop_alien_fleet()
+                break
+        
+    def _drop_alien_fleet(self) -> None:
+        for alien in self.fleet:
+            alien.y += self.fleet_drop_speed
+        
+    def update_fleet(self) -> None:
+        self._check_fleet_egdges()
+        self.fleet.update()    
+        
+        
+        
     def draw(self)-> None:
         """Draw all aliens in the fleet to the screen."""
         alien: 'Alien'

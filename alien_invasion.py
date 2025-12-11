@@ -53,7 +53,7 @@ class AlienInvasion:
 
         self.ship = Ship(self, ShipArsenal(self))
         self.alien_fleet = AlienFleet(self)
-        self.alien_fleet.create_fleet ()
+        self.alien_fleet.create_fleet()
 
 
     def run_game(self) -> None:
@@ -69,8 +69,8 @@ class AlienInvasion:
         while self.running:
             self._chaeck_events()
             self.ship.update()
+            self.alien_fleet.update_fleet()
             self._update_screen()
-            #self.alien.update()
             self.clock.tick(self.Settings.FPS)  
 
     def _update_screen(self)-> None:
