@@ -83,6 +83,15 @@ class AlienInvasion:
            self._reset_level()
             # subtract one lif eif possible
             
+        #Check for collisions for aliens and bottom of screen.
+        if self.alien_fleet.check_bottom():
+            self._reset_level()
+        
+        #check collision of projectiles and aliens
+        collision = self.alien_fleet.check_collision(self.ship.arsenal.arsenal)
+        if collision:
+            self.impact_sound.play()
+            self.impact_sound.fadeout(500)
           
     
     def _reset_level(self) -> None:

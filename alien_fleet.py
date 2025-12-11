@@ -112,4 +112,14 @@ class AlienFleet:
         alien: 'Alien'
         for alien in self.fleet:
             alien.draw_alien()   
+            
+    def check_collision(self, other_group):  
+        return pygame.sprite.groupcollide(self.fleet, other_group, True, True)      
+    
+    def check_bottom(self):
+        alien: Alien
+        for alien in self.fleet:
+            if alien.rect.bottom >= self.settings.screen_h:
+                return True
+        return False
          
