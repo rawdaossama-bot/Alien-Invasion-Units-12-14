@@ -49,7 +49,10 @@ class AlienInvasion:
         pygame.mixer.init()
         self.laser_sound = pygame.mixer.Sound(self.Settings.sound_file)
         self.laser_sound.set_volume(0.5)
-
+        
+        
+        self.impact_sound = pygame.mixer.Sound(self.Settings.impact_sound)
+        self.impact_sound.set_volume(0.5)
 
         self.ship = Ship(self, ShipArsenal(self))
         self.alien_fleet = AlienFleet(self)
@@ -70,8 +73,24 @@ class AlienInvasion:
             self._chaeck_events()
             self.ship.update()
             self.alien_fleet.update_fleet()
+            self._check_collision()
             self._update_screen()
             self.clock.tick(self.Settings.FPS)  
+            
+    def _check_collision(self) -> None:
+        #check colloson for ship
+        if self.ship.check_collision(self.alien_fleet.fleet):
+           self._reset_level()
+            # subtract one lif eif possible
+            
+          
+    
+    def _reset_level(self) -> None:
+        self.ship.arsenal.arsenal.empty()
+        self.alien_fleet.fleet.empty()
+        self.alien_fleet.create_fleet()
+            
+            
 
     def _update_screen(self)-> None:
         """Redraw the screen and flip to the new display.

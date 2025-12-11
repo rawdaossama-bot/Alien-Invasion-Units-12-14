@@ -52,11 +52,14 @@ class Ship:
            (self.Settings.ship_w,self.Settings.ship_h))
         
         self.rect = self.image.get_rect()
-        self.rect.midbottom = self.boundaries.midbottom
+        self._center_ship()
         self.moving_right = False
         self.moving_left = False
-        self.x =float(self.rect.x)
         self.arsenal = arsenal
+
+    def _center_ship(self):
+        self.rect.midbottom = self.boundaries.midbottom
+        self.x =float(self.rect.x)
 
     def update(self)-> None:
         """Update ship position and its arsenal each frame.
@@ -97,5 +100,10 @@ class Ship:
         """
         return self.arsenal.fire_bullet()
         
-
         
+    def check_collision(self, other_group):        
+
+        if pygame.sprite.spritecollideany(self, other_group):
+            self._center_ship()
+            return True
+        return False
