@@ -36,15 +36,15 @@ class AlienFleet:
         screen_h = self.settings.screen_h
         
         fleet_w , fleet_h = self.calculate_fleet_size(alien_w, screen_w, alien_h, screen_h)
-        
-        half_screen = self.settings.screen_h // 2
-        fleet_horizantle_space = (fleet_w * alien_w)
-        fleet_vertical_space = (fleet_h * alien_h)
-        x_offset = int((screen_w - fleet_horizantle_space) // 2)
-        y_offset = int((half_screen - fleet_vertical_space) // 2)
-        
+        x_offset, y_offset = self.calculate_offsets(alien_w, alien_h, screen_w, fleet_w, fleet_h)
+         
+        """random_value = math.random.randint(x_offset - 10, x_offset + 10), math.random.randint(y_offset - 10, y_offset + 10)
+        x_offset, y_offset = random_value
+        if getattr(self.game, "level", 1) == 1: """
+        self._create_rectangle(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
+
+    def _create_rectangle(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
         for row in range(fleet_h):
-            
             for col in range(fleet_w):
                 current_x = alien_w * col + x_offset 
                 current_y = alien_h * row + y_offset
@@ -59,6 +59,14 @@ class AlienFleet:
             """if col %2 == 0:
                     continue 
             self._creat_alien(current_x, current_y)"""
+
+    def new_method(self, alien_w, alien_h, screen_w, fleet_w, fleet_h):
+        half_screen = self.settings.screen_h // 2
+        fleet_horizantle_space = (fleet_w * alien_w)
+        fleet_vertical_space = (fleet_h * alien_h)
+        x_offset = int((screen_w - fleet_horizantle_space) // 2)
+        y_offset = int((half_screen - fleet_vertical_space) // 2)
+        return x_offset,y_offset
         #self.calculate_fleet_size(alien_w, screen_w)
 
     def calculate_fleet_size(self, alien_w, screen_w, alien_h, screen_h) -> int:
