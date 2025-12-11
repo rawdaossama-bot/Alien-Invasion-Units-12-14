@@ -31,32 +31,52 @@ class AlienFleet:
     
     def create_fleet(self) -> None:
         alien_w = self.settings.alien_w
+        alien_h = self.settings.alien_h
         screen_w = self.settings.screen_w
-        fleet_w = self.calculate_fleet_size(alien_w, screen_w)
+        screen_h = self.settings.screen_h
         
-       # half_screen = self.settings.screen_w 
+        fleet_w , fleet_h = self.calculate_fleet_size(alien_w, screen_w, alien_h, screen_h)
+        
+        half_screen = self.settings.screen_h // 2
         fleet_horizantle_space = (fleet_w * alien_w)
+        fleet_vertical_space = (fleet_h * alien_h)
         x_offset = int((screen_w - fleet_horizantle_space) // 2)
+        y_offset = int((half_screen - fleet_vertical_space) // 2)
         
-        for col in range(fleet_w):
-            current_x = alien_w * col + x_offset 
-            """y = 50  # Starting y position for the fleet
-            alien = Alien(game=None, x=x, y=y)  # Pass None for game, adjust as needed
-            self.fleet.add(alien)
-        """
-            self._creat_alien(current_x, 10)
+        for row in range(fleet_h):
+            
+            for col in range(fleet_w):
+                current_x = alien_w * col + x_offset 
+                current_y = alien_h * row + y_offset
+                """y = 50  # Starting y position for the fleet
+                alien = Alien(game=None, x=x, y=y)  # Pass None for game, adjust as needed
+                self.fleet.add(alien)
+                    """
+                  
+                if col%2==0 or row %2 ==0:
+                    continue
+                self._creat_alien(current_x, current_y)
+            """if col %2 == 0:
+                    continue 
+            self._creat_alien(current_x, current_y)"""
         #self.calculate_fleet_size(alien_w, screen_w)
 
-    def calculate_fleet_size(self, alien_w, screen_w):
-        
-        
+    def calculate_fleet_size(self, alien_w, screen_w, alien_h, screen_h) -> int:
         fleet_w = (screen_w//alien_w)
-        if fleet_w %2 == 0:
+        fleet_h = ((screen_h /2 )// alien_h)
+        if fleet_w %2 == 0 :
             # Make fleet width odd for centering
             fleet_w -= 1
         else: 
             fleet_w -= 2
-        return fleet_w    
+            
+        if fleet_h %2 == 0:
+            # Make fleet height odd for centering
+            fleet_h -= 1
+        else:
+            fleet_h -= 2
+               
+        return int(fleet_w), int(fleet_h)  
             
     def _creat_alien(self, current_x: int, current_y: int) -> None: 
         new_alien = Alien(self, current_x, current_y)   
