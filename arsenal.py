@@ -1,18 +1,20 @@
 """
 arsenal.py
 
+Lab_13_Rawda Hassanin_1
 Author: Rawda Hassanin
 Date: 11/30/2025
 Resources:
-- Starter repo: https://github.com/rawdaossama-bot/Lab12_Rawda-Hassanin_1.git
+- Starter repo: https://github.com/rawdaossama-bot/Alien-Invasion-Units-12-14.git
 - Pygame documentation: https://www.pygame.org/docs/
 
-Provides ShipArsenal, a thin wrapper around a pygame.sprite.Group that
-manages the ship's bullets. Responsibilities:
-- create and store active Bullet instances
-- update and remove off-screen bullets
-- draw bullets to the screen
-- enforce the configured maximum number of bullets
+This module provides the ShipArsenal class, which manages the player's bullets
+in the Alien Invasion game. Responsibilities include:
+
+- Creating and storing active Bullet instances.
+- Updating bullet positions and removing bullets that leave the screen.
+- Drawing bullets to the game screen.
+- Enforcing the configured maximum number of bullets on screen.
 """
 import pygame
 from bullet import Bullet
@@ -34,10 +36,10 @@ class ShipArsenal:
     """
 
     def __init__(self,game: 'AlienInvasion') -> None:
-        """Create a ShipArsenal tied to the given game.
+        """Initialize a ShipArsenal tied to a specific game.
 
         Args:
-            game: The AlienInvasion instance that owns this arsenal.
+            game (AlienInvasion): The main AlienInvasion instance that owns this arsenal.
         """
         self.game = game
         self.Settings = game.Settings
@@ -45,9 +47,9 @@ class ShipArsenal:
 
     def update_arsenal(self)-> None:
         """Update all bullets and remove those that left the screen.
-
-        Calls the sprite Group update method and then removes bullets whose
-        rect.bottom has moved past the top of the display.
+        
+        Iterates through the sprite group, updating each bullet's position.
+        Bullets that move past the top of the screen are removed.
         """
         self.arsenal.update()
         for bullet in self.arsenal.copy():
@@ -87,12 +89,38 @@ if TYPE_CHECKING:
     
 
 class ShipArsenal:
-    def __init__(self,game: 'AlienInvasion') -> None:    
+    """
+    Manage the ship's active bullets in the Alien Invasion game.
+
+    Responsibilities:
+    - Store and manage active Bullet instances in a pygame.sprite.Group.
+    - Update bullet positions each frame and remove bullets that leave the screen.
+    - Draw all bullets on the game screen.
+    - Enforce the maximum number of bullets allowed simultaneously.
+
+    Attributes:
+        game (AlienInvasion): Reference to the main game instance.
+        Settings: Shortcut to the game's Settings for configuration values.
+        arsenal (pygame.sprite.Group): Group holding all active bullets.
+    """
+    def __init__(self,game: 'AlienInvasion') -> None:
+        """
+        Initialize a ShipArsenal tied to the given game instance.
+
+        Args:
+            game (AlienInvasion): The main game instance that owns this arsenal.
+        """    
         self.game = game
         self.Settings = game.Settings
         self.arsenal = pygame.sprite.Group()
 
     def update_arsenal(self)-> None:
+        """
+        Update all bullets in the arsenal and remove bullets that leave the screen.
+
+        Iterates through all bullets, calls their update method, and removes
+        any bullet whose rect.bottom is less than or equal to 0.
+        """
         self.arsenal.update()
         for bullet in self.arsenal.copy():
             if bullet.rect.bottom <= 0: 
@@ -100,10 +128,23 @@ class ShipArsenal:
 
 
     def draw(self)->None:      
+        """
+        Draw all active bullets to the game screen.
+
+        Iterates through each bullet in the arsenal and calls its draw method.
+        """
         for bullet in self.arsenal:
             bullet.draw_bullet()
 
     def fire_bullet(self):
+        """
+        Attempt to create and add a new bullet to the arsenal.
+
+        Respects Settings.bullet_amount as the maximum simultaneous bullets.
+
+        Returns:
+            bool: True if a new bullet was created and added, False otherwise.
+        """
         if len(self.arsenal) < self.Settings.bullet_amount:
             new_bullet = Bullet(self.game) 
             self.arsenal.add(new_bullet)

@@ -1,10 +1,11 @@
 """
 ship.py
 
+Lab_13_Rawda Hassanin_1
 Author: Rawda Hassanin
 Date: 11/30/2025
 Resources:
-- Starter repo: https://github.com/rawdaossama-bot/Lab12_Rawda-Hassanin_1.git
+- Starter repo: https://github.com/rawdaossama-bot/Alien-Invasion-Units-12-14.git
 - Pygame documentation: https://www.pygame.org/docs/
 
 Defines the Ship class which represents the player's ship in the game.
@@ -57,21 +58,21 @@ class Ship:
         self.moving_left = False
         self.arsenal = arsenal
 
-    def _center_ship(self):
+    def _center_ship(self) -> None:
+        """Center the ship horizontally and position it at the bottom of the screen."""
         self.rect.midbottom = self.boundaries.midbottom
-        self.x =float(self.rect.x)
+        self.x = float(self.rect.x)
 
-    def update(self)-> None:
+    def update(self) -> None:
         """Update ship position and its arsenal each frame.
 
         Calls the internal movement updater then delegates to the arsenal's
         update method so bullets/projectiles are updated together with the ship.
         """
-         # updating the position of the ship
         self._update_ship_movement() 
         self.arsenal.update_arsenal()
 
-    def _update_ship_movement(self):
+    def _update_ship_movement(self) -> None:
         """Adjust the ship's x position based on movement flags and speed.
 
         Constrains movement to the screen boundaries and stores the new x
@@ -86,12 +87,12 @@ class Ship:
 
         self.rect.x = self.x   
 
-    def draw(self)-> None:
+    def draw(self) -> None:
         """Draw the ship and its arsenal to the screen surface."""
         self.screen.blit(self.image, self.rect)
         self.arsenal.draw()
 
-    def fire(self) ->bool:
+    def fire(self) -> bool:
         """Attempt to fire a bullet via the arsenal.
 
         Returns:
@@ -100,9 +101,17 @@ class Ship:
         """
         return self.arsenal.fire_bullet()
         
-        
-    def check_collision(self, other_group):        
+    def check_collision(self, other_group) -> bool:
+        """Check if the ship collides with any sprite in the given group.
 
+        If a collision is detected, recenters the ship on the screen.
+
+        Args:
+            other_group: A pygame sprite group to check for collisions with.
+
+        Returns:
+            bool: True if a collision occurred, False otherwise.
+        """
         if pygame.sprite.spritecollideany(self, other_group):
             self._center_ship()
             return True

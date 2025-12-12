@@ -1,10 +1,11 @@
 """
 Settings.py
 
+Lab_13_Rawda Hassanin_1
 Author: Rawda Hassanin
 Date: 11/30/2025
 Resources:
-- Starter repo: https://github.com/rawdaossama-bot/Lab12_Rawda-Hassanin_1.git
+- Starter repo: https://github.com/rawdaossama-bot/Alien-Invasion-Units-12-14.git
 - Pygame documentation: https://www.pygame.org/docs/
 
 Defines the Settings class which centralizes all game configuration values.
@@ -26,12 +27,20 @@ class Settings:
         ship_w: Ship sprite width in pixels.
         ship_h: Ship sprite height in pixels.
         ship_speed: Ship movement speed in pixels per frame.
+        startign_ship_count: Initial number of ships available to the player.
         bullet_file: Path to bullet sprite image file.
         sound_file: Path to laser sound effect file.
+        impact_sound: Path to impact sound effect file.
         bullet_speed: Bullet movement speed in pixels per frame.
         bullet_w: Bullet sprite width in pixels.
         bullet_h: Bullet sprite height in pixels.
         bullet_amount: Maximum number of simultaneous bullets allowed.
+        alien_file: Path to alien sprite image file.
+        fleet_speed: Alien fleet horizontal movement speed in pixels per frame.
+        alien_w: Alien sprite width in pixels.
+        alien_h: Alien sprite height in pixels.
+        fleet_direction: Direction of fleet movement (1 for right, -1 for left).
+        fleet_drop_speed: Vertical distance fleet drops when changing direction.
     """
 
     def __init__(self) -> None:
@@ -56,11 +65,9 @@ class Settings:
         self.bullet_h = 80
         self.bullet_amount = 8
         
-        
         self.alien_file = Path.cwd() / 'Assets'/ 'images'/ 'enemy_4.png'
-        self.fleet_speed  = 2
+        self.fleet_speed = 2
         self.alien_w = 30
         self.alien_h = 40
         self.fleet_direction = 1  # 1 for right, -1 for left 
         self.fleet_drop_speed = 80
-        
