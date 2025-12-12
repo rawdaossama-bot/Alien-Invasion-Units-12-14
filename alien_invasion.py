@@ -15,10 +15,12 @@ main loop, events, and screen updates.
 import sys
 import pygame
 from Settings import Settings
+from game_stats import GameStats
 from ship import Ship
 from arsenal import ShipArsenal
 #from alien import Alien
 from alien_fleet import AlienFleet
+from time import sleep
 
 
 class AlienInvasion:
@@ -34,6 +36,7 @@ class AlienInvasion:
         pygame.init()
         pygame.mixer.init()
         self.Settings = Settings()
+        self.game_stats = GameStats(self.Settings.startign_ship_count)
 
         self.screen =pygame.display.set_mode((self.Settings.screen_w,self.Settings.screen_h))
         pygame.display.set_caption(self.Settings.name)
@@ -57,6 +60,7 @@ class AlienInvasion:
         self.ship = Ship(self, ShipArsenal(self))
         self.alien_fleet = AlienFleet(self)
         self.alien_fleet.create_fleet()
+        self.game_active = True
 
 
     def run_game(self) -> None:
@@ -71,21 +75,23 @@ class AlienInvasion:
         #Game Loop
         while self.running:
             self._chaeck_events()
-            self.ship.update()
-            self.alien_fleet.update_fleet()
-            self._check_collision()
+            if self.game_active:
+                self.ship.update()
+                self.alien_fleet.update_fleet()
+                self._check_collision()
             self._update_screen()
             self.clock.tick(self.Settings.FPS)  
             
     def _check_collision(self) -> None:
         #check colloson for ship
         if self.ship.check_collision(self.alien_fleet.fleet):
-           self._reset_level()
+           self.check_game_stats()
+           
             # subtract one lif eif possible
             
         #Check for collisions for aliens and bottom of screen.
         if self.alien_fleet.check_bottom():
-            self._reset_level()
+            self.check_game_stats()
         
         #check collision of projectiles and aliens
         collision = self.alien_fleet.check_collision(self.ship.arsenal.arsenal)
@@ -93,10 +99,19 @@ class AlienInvasion:
             self.impact_sound.play()
             self.impact_sound.fadeout(500)
             
-        if self.alien_fleet.check_destroyed_status():  
+        if self.alien_fleet.check_destroyed_stats():  
             self._reset_level()
             
-              
+    def check_game_stats(self) -> None:   
+        if self.game_stats.ship_left >0:
+            self.game_stats.ship_left -= 1
+            self._reset_level()   
+            pygame.time.delay(500)
+            sleep(0.5)
+        else:
+            self.game_active = False  
+            print("Game Over!")  
+          
           
     
     def _reset_level(self) -> None:

@@ -46,6 +46,7 @@ class Settings:
         self.ship_w = 80
         self.ship_h = 80
         self.ship_speed = 15
+        self.startign_ship_count = 3
 
         self.bullet_file = Path.cwd() / 'Assets' / 'images' / 'laserBlast.png'
         self.sound_file = Path.cwd() / 'Assets' / 'sound' / 'laser.mp3'
@@ -59,6 +60,7 @@ class Settings:
         self.alien_file = Path.cwd() / 'Assets'/ 'images'/ 'enemy_4.png'
         self.fleet_speed  = 2
         self.alien_w = 30
-        self.alien_h = 30
+        self.alien_h = 40
         self.fleet_direction = 1  # 1 for right, -1 for left 
         self.fleet_drop_speed = 80
+        
